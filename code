@@ -7,10 +7,6 @@ editor_options:
 ---
 
 
-```{r}
-install.packages("lubridate")
-```
-
 
 ```{r load-packages, message=FALSE}
 library(tidyverse)
@@ -174,8 +170,8 @@ combined_borough_data <- bind_rows(AQS_Bronx_data_filtered, AQS_Brooklyn_data_fi
 
 ```{r bar 2}
 ggplot(avg_AQI_dataframe, aes(x = Borough, y = Average_AQI, fill = Borough)) +
-  geom_bar(stat = "identity", color = "white", position = "dodge") +
-  geom_text(aes(label = paste0(round(Average_AQI, 2), "%")), position = position_dodge(width = 0.9), vjust = -0.5, size = 4, color = "black") +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = paste0(round(Average_AQI, 2), "%")), vjust = -0.5, size = 4, color = "black") +
   labs(
     title = "Average AQI in NYC by Borough (2023)",
     x = "Borough",
@@ -213,7 +209,7 @@ new_legend_labels <- c("Bronx" = "Bronx",
                        "Richmond" = "Staten Island")
 
 ggplot(combined_borough_data, aes(x = DAILY_AQI_VALUE, fill = COUNTY)) +
-  geom_density(alpha = 0.7) +
+  geom_density(alpha = 0.8) +
   labs(
     title = "Density Plot of Daily AQI in NYC by Borough (2023)",
     x = "Daily AQI",
