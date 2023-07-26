@@ -1,0 +1,163 @@
+---
+title: "Import Data"
+author: "Bryan Gonzalez"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+
+```
+
+-   Read in the csv file called `ad_viz_plotval_data (Queens AQS).csv` from the `data-raw/` folder
+
+QUEENS:
+```{r view data Queens}
+AQS_Queens_data <- read_csv("data-raw/ad_viz_plotval_data (Queens AQS).csv") 
+AQS_Queens_data
+
+```
+
+```{r filtered columns Queens}
+AQS_Queens_data_filtered <- read_csv("data-raw/ad_viz_plotval_data (Queens AQS).csv") %>%
+  select(-"Site ID", -"POC", -"UNITS", -"DAILY_OBS_COUNT", -"PERCENT_COMPLETE", -"AQS_PARAMETER_DESC", -"CBSA_CODE", -"CBSA_NAME", -"STATE_CODE", -"STATE", -"AQS_PARAMETER_CODE", -"COUNTY_CODE", -"SITE_LATITUDE", -"SITE_LONGITUDE") %>%
+  filter(Source != "AirNow")
+AQS_Queens_data_filtered
+
+```
+
+```{r Average Queens}
+
+# Calculate the average DAILY_AQI_VALUE for each month
+Queens_2023_average_AQI <- mean(AQS_Queens_data_filtered$"DAILY_AQI_VALUE", na.rm = TRUE)
+Queens_2023_average_AQI
+```
+
+
+
+BROOKLYN:
+```{r view data Brooklyn}
+AQS_Brooklyn_data <- read_csv("data-raw/ad_viz_plotval_data (Brooklyn AQS).csv") 
+AQS_Brooklyn_data
+
+```
+
+```{r filtered columns Brooklyn}
+AQS_Brooklyn_data_filtered <- read_csv("data-raw/ad_viz_plotval_data (Brooklyn AQS).csv") %>%
+  select(-"Site ID", -"POC", -"UNITS", -"DAILY_OBS_COUNT", -"PERCENT_COMPLETE", -"AQS_PARAMETER_DESC", -"CBSA_CODE", -"CBSA_NAME", -"STATE_CODE", -"STATE", -"AQS_PARAMETER_CODE", -"COUNTY_CODE", -"SITE_LATITUDE", -"SITE_LONGITUDE") %>%
+  filter(Source != "AirNow")
+AQS_Brooklyn_data_filtered
+
+```
+
+```{r Average Brooklyn}
+
+# Calculate the average DAILY_AQI_VALUE for each month
+Brooklyn_2023_average_AQI <- mean(AQS_Brooklyn_data_filtered$"DAILY_AQI_VALUE", na.rm = TRUE)
+Brooklyn_2023_average_AQI
+```
+
+
+
+BRONX:
+```{r view data Bronx}
+AQS_Bronx_data <- read_csv("data-raw/ad_viz_plotval_data (Bronx AQS).csv") 
+AQS_Bronx_data
+
+```
+
+```{r filtered columns Bronx}
+AQS_Bronx_data_filtered <- read_csv("data-raw/ad_viz_plotval_data (Bronx AQS).csv") %>%
+  select(-"Site ID", -"POC", -"UNITS", -"DAILY_OBS_COUNT", -"PERCENT_COMPLETE", -"AQS_PARAMETER_DESC", -"CBSA_CODE", -"CBSA_NAME", -"STATE_CODE", -"STATE", -"AQS_PARAMETER_CODE", -"COUNTY_CODE", -"SITE_LATITUDE", -"SITE_LONGITUDE") %>%
+  filter(Source != "AirNow")
+AQS_Bronx_data_filtered
+
+```
+
+```{r Average Bronx}
+
+# Calculate the average DAILY_AQI_VALUE for each month
+Bronx_2023_average_AQI <- mean(AQS_Bronx_data_filtered$"DAILY_AQI_VALUE", na.rm = TRUE)
+Bronx_2023_average_AQI
+```
+
+
+
+MANHATTAN:
+```{r view data Manhattan}
+AQS_Manhattan_data <- read_csv("data-raw/ad_viz_plotval_data (Manhattan AQS).csv") 
+AQS_Manhattan_data
+
+```
+
+```{r filtered columns Manhattan}
+AQS_Manhattan_data_filtered <- read_csv("data-raw/ad_viz_plotval_data (Manhattan AQS).csv") %>%
+  select(-"Site ID", -"POC", -"UNITS", -"DAILY_OBS_COUNT", -"PERCENT_COMPLETE", -"AQS_PARAMETER_DESC", -"CBSA_CODE", -"CBSA_NAME", -"STATE_CODE", -"STATE", -"AQS_PARAMETER_CODE", -"COUNTY_CODE", -"SITE_LATITUDE", -"SITE_LONGITUDE") %>%
+  filter(Source != "AirNow")
+AQS_Manhattan_data_filtered
+
+```
+
+```{r Average Manhattan}
+
+# Calculate the average DAILY_AQI_VALUE for each month
+Manhattan_2023_average_AQI <- mean(AQS_Manhattan_data_filtered$"DAILY_AQI_VALUE", na.rm = TRUE)
+Manhattan_2023_average_AQI
+```
+
+
+
+STATEN ISLAND:
+```{r view data Staten Island}
+AQS_StatenIsland_data <- read_csv("data-raw/ad_viz_plotval_data (Staten Island AQS).csv") 
+AQS_StatenIsland_data
+
+```
+
+```{r filtered columns Staten Island}
+AQS_StatenIsland_data_filtered <- read_csv("data-raw/ad_viz_plotval_data (Staten Island AQS).csv") %>%
+  select(-"Site ID", -"POC", -"UNITS", -"DAILY_OBS_COUNT", -"PERCENT_COMPLETE", -"AQS_PARAMETER_DESC", -"CBSA_CODE", -"CBSA_NAME", -"STATE_CODE", -"STATE", -"AQS_PARAMETER_CODE", -"COUNTY_CODE", -"SITE_LATITUDE", -"SITE_LONGITUDE") %>%
+  filter(Source != "AirNow")
+AQS_StatenIsland_data_filtered
+
+```
+
+```{r Average Staten Island}
+
+# Calculate the average DAILY_AQI_VALUE for each month
+StatenIsland_2023_average_AQI <- mean(AQS_StatenIsland_data_filtered$"DAILY_AQI_VALUE", na.rm = TRUE)
+StatenIsland_2023_average_AQI
+```
+
+
+
+
+```{r Bar Graph}
+
+# Create a graph to compare the average AQI across each borough
+avg_AQI_dataframe <- data.frame(
+  Borough = c("Queens", "Brooklyn", "Bronx", "Manhattan", "Staten Island"),
+  Average_AQI = c(Queens_2023_average_AQI, Brooklyn_2023_average_AQI, Bronx_2023_average_AQI, Manhattan_2023_average_AQI, StatenIsland_2023_average_AQI)
+)
+
+ggplot(avg_AQI_dataframe, aes(x = Borough, y = Average_AQI)) +
+  geom_bar(stat = "identity", fill = "#8ACFF1") +
+  labs(
+    title = "Average AQI in NYC by Borough (2023)",
+    x = "Borough",
+    y = "Average AQI"
+  )
+
+```
+
+
+
+
+
+
+
+
